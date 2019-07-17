@@ -1,0 +1,413 @@
+/* css初始化 */
+* {
+    margin: 0;
+    padding: 0;  /* 清除内外边距 */
+}
+body {
+    font-family: "Lato", sans-serif;
+    background-color: #EFF1F2;
+}
+ul {
+    list-style: none; /* 去掉列表样式小点 */
+    margin: 0;
+    padding: 0; 
+}
+.clearfix:before, .clearfix:after {   /* 清除浮动 */
+    display: table;
+    content: "";
+}
+.clearfix:after {
+    clear: both;
+}
+.clearfix {
+    *zoom: 1;
+}
+a {
+    color: #050505;
+    text-decoration: none;  /* 取消下划线 */
+}
+input, select {
+    border: 0;  /* 所有的表单边框为0 */
+    box-sizing: border-box; /* CSS3盒子模型 border 和 padding 都包含到 width 里面去 */
+}
+
+@media screen and (min-width: 320px){
+    html{
+        font-size: 16px;
+    }
+}
+@media screen and (min-width: 360px){
+    html{
+        font-size: 18px;
+    }
+}
+@media screen and (min-width: 375px){
+    html{
+        font-size: 18.75px;
+    }
+}
+@media screen and (min-width: 414px){
+    html{
+        font-size: 20.07px;
+    }
+}
+@media screen and (min-width: 768px){
+    html{
+        font-size: 38.4px;
+    }
+}
+@media screen and (min-width: 1024px){
+    html{
+        font-size: 51.2px;
+    }
+}@media screen and (min-width: 1288px){
+    html{
+        font-size: 64.4px;
+    }
+}
+@media screen and (min-width: 2000px){
+    html{
+        font-size: 100px;
+    }
+}
+/* 装饰函数 */
+.littlePoint(@color:rgb(76, 96, 207)){
+    position: relative;
+    li{
+        position: absolute;
+        width:1rem;
+        height:1rem;
+        border-radius:50%;
+        background-color:@color;
+    }
+}
+
+
+
+/* 导航栏 */
+.MYnavbar0{
+    margin-bottom:0;
+    width:100%;
+    background-color:rgba(0,0,0,0.2);
+    position: fixed;
+    z-index: 999;
+        li{
+              a{
+                color: #fff;
+                display:block;
+                padding-left:0.7rem;
+                float:left;
+                line-height: 1rem;
+                height: 1rem;
+                text-decoration: none;
+                }
+                &:nth-child(6) a{
+                float: right;
+                padding-right:0.8rem;
+                }
+                @media screen and (max-width: 444px){
+                    &:nth-child(6) a{
+                        display:none;
+                        } 
+                }
+                @media screen and (max-width: 340px){
+                      a{
+                        font-size:12px;
+                        } 
+                }
+        }
+      }
+    
+        
+
+/* 轮播图 */
+.MYcarousel {
+    width: 100%;
+    margin:0 auto;
+    .item{
+        img{
+            width:100%;
+            height: 15rem;
+            @media screen and(min-width:480px){
+                height:11.2rem;
+            }
+            text-align: center;
+            display: block;
+        }
+      }
+    }
+    
+/* 人物介绍 */
+/* 主要人物 */
+@media screen and (max-width:650px){
+    .info{
+        .info1{
+            padding:1rem;
+            background: linear-gradient(rgba(154, 148, 233,0.2), rgba(135, 212, 139,0.1)); 
+            #xswl1{
+                 width:100%;
+                 float: left;
+                 margin-top:1.5rem;
+                 border-radius:1rem;
+                 border-color: rgb(154, 148, 233);
+                 box-shadow:3px 3px 3px rgba(0,0,0,0.2);
+                 .am-panel-hd{
+                     background-color:rgb(154, 148, 233);
+                     border-color: rgb(154, 148, 233);
+                     border-top-right-radius: 1rem;
+                     border-top-left-radius: 1rem;
+             
+                 }
+                 .am-panel-bd{
+                     line-height:18px;
+                     padding:0.8rem;
+                 }
+             }
+             #xswl2{
+                 width:45%;
+                 float:right;
+                 border:none;
+                 border-radius:1rem;
+                 background-color:rgba(0,0,0,0);  
+                 img{
+                     border-radius:1rem;
+                     height:9rem;
+                     width:100%;
+                 }
+             }
+         }
+         
+         .info2{
+             position:relative;
+             padding:1rem;
+             background: linear-gradient(rgba(135, 212, 139,0.1), rgba(255, 177, 221, 0.2)); 
+             #aswl1{
+                 width:100%;
+                 float: right;
+                 margin-top:1.5rem;
+                 border-radius:1rem;
+                 border-color: rgb(135, 212, 139);
+                 box-shadow:3px 3px 3px rgba(0,0,0,0.2);
+                 .am-panel-hd{
+                     background-color:rgb(135, 212, 139);
+                     border-color: rgb(135, 212, 139);
+                     border-top-right-radius: 1rem;
+                     border-top-left-radius: 1rem;
+             
+                 }
+                 .am-panel-bd{
+                     line-height:18px;
+                     padding:0.8rem;
+                 }
+             }
+             #aswl2{
+                 width:45%;
+                 float:left;
+                 border:none;
+                 position:absolute;
+                 top:-8rem;
+                 left: 1.25rem;
+                 padding-top:0.1rem;
+                 background-color:rgba(0,0,0,0);
+                 border-radius:1rem;
+                 img{
+                     height:9rem;
+                     width:100%;
+                     border-radius:1rem;
+                 }
+             }
+         }
+         
+    }
+}
+@media screen and (min-width:650px){
+    .info{
+        .info1{
+            padding:1rem;
+            background: linear-gradient(rgba(154, 148, 233,0.2), rgba(135, 212, 139,0.1)); 
+            #xswl1{
+                 width:45%;
+                 float: left;
+                 margin-top:1.5rem;
+                 border-radius:1rem;
+                 border-color: rgb(154, 148, 233);
+                 box-shadow:3px 3px 3px rgba(0,0,0,0.2);
+                 .am-panel-hd{
+                     background-color:rgb(154, 148, 233);
+                     border-color: rgb(154, 148, 233);
+                     border-top-right-radius: 1rem;
+                     border-top-left-radius: 1rem;
+             
+                 }
+                 .am-panel-bd{
+                     line-height:18px;
+                     padding:0.8rem;
+                 }
+             }
+             #xswl2{
+                 width:45%;
+                 float:right;
+                 border:none;
+                 border-radius:1rem;
+                 background-color:rgba(0,0,0,0);  
+                 img{
+                     border-radius:1rem;
+                     height:9rem;
+                     width:100%;
+                 }
+             }
+         }
+         
+         .info2{
+             padding:1rem;
+             background: linear-gradient(rgba(135, 212, 139,0.1), rgba(255, 177, 221, 0.2)); 
+             #aswl1{
+                 width:45%;
+                 float: right;
+                 margin-top:1.5rem;
+                 border-radius:1rem;
+                 border-color: rgb(135, 212, 139);
+                 box-shadow:3px 3px 3px rgba(0,0,0,0.2);
+                 .am-panel-hd{
+                     background-color:rgb(135, 212, 139);
+                     border-color: rgb(135, 212, 139);
+                     border-top-right-radius: 1rem;
+                     border-top-left-radius: 1rem;
+             
+                 }
+                 .am-panel-bd{
+                     line-height:18px;
+                     padding:0.8rem;
+                 }
+             }
+             #aswl2{
+                 width:45%;
+                 float:left;
+                 border:none;
+                 padding-top:0.1rem;
+                 background-color:rgba(0,0,0,0);
+                 border-radius:1rem;
+                 img{
+                     height:9rem;
+                     width:100%;
+                     border-radius:1rem;
+                 }
+             }
+         }
+         
+    }
+}
+/* 次要人物 */
+.am-accordion,.am-accordion-gapped{
+    margin:0;
+    background: url(../素材库/远子学姐/13.jpg);
+    .am-accordion-item{
+        float:left;
+        margin-left:0.6rem;
+        width:100%;
+        @media screen and (min-width:580px){
+            width:30%;
+        }  
+        dt{
+            margin:0 auto;
+            padding-bottom: 0;
+            text-align: center;
+            font-size: 0.5rem;
+            line-height: 1rem;
+            background-color: rgba(0,0,0,0.02);
+            img{
+                display:block;
+                width:100%;
+                height:14rem;
+                @media screen and (min-width:580px){
+                    height:4rem;
+                } 
+            }
+        }
+        dd{
+            .am-accordion-content{
+                font-size:0.25rem;
+                background-color: rgba(0,0,0,0.02);
+            }
+        }
+    }
+}
+
+
+
+
+/* 情节概要 */
+#story{
+    width:100%;
+    background-color: #fff;
+    padding:1rem 0;
+    background: url(../素材库/远子学姐/12.jpg) no-repeat;
+    @media screen and (max-width:560px){
+        background-size: 100% 100%;
+    }
+    @media screen and (min-width:580px){
+        background-size: 100% auto;
+    }
+    .am-tabs{
+        width:80%;
+        margin:0 auto;
+       /* pc端导航 */
+        .am-tabs-nav{
+            li a{
+                border-radius: 50% 0%;
+                line-height: 0.8rem;
+            }
+            .am-active{
+                a{
+                    background-color: rgba(253, 250, 242,0.7);
+                }
+            }
+        
+        }
+         /* 移动端导航 */
+        .yd_menu{
+            .am-btn-primary{
+                width:100%;
+                background-color: rgba(141, 212, 113, 0.6);
+                border-color: rgba(141, 212, 113, 0.6);
+            }
+            nav{
+                ul{
+                    &:before{
+                      display:none;
+                    }
+                    padding:0;
+                    li{
+                        a{
+                            display:block;
+                            float: left;
+                            width:50%;
+                            background-color:rgba(141, 212, 113, 0.3);
+                        }
+                        a:nth-child(2n){
+                            float:right;
+                        }  
+                    }
+                }
+            }
+        }
+        @media screen and (max-width:450px){
+            .am-tabs-nav{
+                display:none;
+            }
+        }
+        @media screen and (min-width:450px){
+            .yd_menu{
+                display:none;
+            }
+        }
+        /* 面板 */
+        .am-tabs-bd{
+            @media screen and (min-width:800px){
+                line-height: 0.5rem;
+            }
+            padding:0.5rem 2rem;
+            background-color: rgba(253, 250, 242,0.7);
+        }
+    }
+}
