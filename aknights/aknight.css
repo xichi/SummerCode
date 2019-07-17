@@ -1,0 +1,49 @@
+/* css初始化 */
+* {
+  margin: 0;
+  padding: 0;
+  /* 清除内外边距 */
+}
+body {
+  font-family: "Lato", sans-serif;
+  background-color: #EFF1F2;
+}
+ul {
+  list-style: none;
+  /* 去掉列表样式小点 */
+  margin: 0;
+  padding: 0;
+}
+.clearfix:before,
+.clearfix:after {
+  /* 清除浮动 */
+  display: table;
+  content: "";
+}
+.clearfix:after {
+  clear: both;
+}
+.clearfix {
+  *zoom: 1;
+}
+#app {
+  width: 80%;
+  margin: 10px auto;
+}
+#app .up div {
+  float: left;
+}
+#app .bar {
+  padding-left: 30%;
+}
+#app .bar input {
+  display: block;
+  float: left;
+  margin: 15px;
+  padding: 5px;
+  background-color: #eeeded;
+}
+#app .box {
+  background-color: white;
+  box-shadow: 5px 5px 5px #888888;
+}
