@@ -1,0 +1,145 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>TODOLIST</title>
+    <script src="./lib/vue-2.4.0.js"></script>
+    <link rel="stylesheet" href="./lib/bootstrap-3.3.7.css">
+</head>
+<body>
+ <div id="app">
+        <div class="panel panel-primary">
+                <div class="panel-heading">
+                  <h3 class="panel-title">未完成</h3>
+                </div>
+        <div class="panel-body form-inline">
+            <label for="">ID:<input type="text" v-model="id"></label>
+            <label for="">Task:<input type="text" v-model="task"></label>
+            <label for="">Deadline:<input type="text" v-model="deadline"></label>
+            <input type="button" value='添加' @click='add()' class="btn btn-primary">
+            <label for="">Search<input type="text" v-model="keywords"></label>
+     </div> 
+     <table class="table table-bordered table-hover table-striped">
+         <thead>
+             <tr>
+                 <th>ID</th>
+                 <th>Task</th>
+                 <th>startTime</th>
+                 <th>Deadline</th>
+                 <th>Operation</th>
+             </tr>
+         </thead>
+         <tbody>
+             <tr v-for="item in search(keywords)" :key="item.id">
+                  <td>{{item.id}}</td>
+                  <td>{{item.task}}</td>
+                  <td>{{item.ctime | dateFormat()}}</td>
+                  <td>{{item.deadline| dateFormat()}}</td>
+                  <td>
+                      <input type="button" value='删除' @click='del(item.id)' class="btn btn-primary">
+                      <input type="button" value='完成' @click='finish(item.id)'class="btn btn-primary">
+                  </td>
+             </tr>
+         </tbody>
+     </table>
+    </div> 
+     <div class="panel panel-primary">
+            <div class="panel-heading">
+              <h3 class="panel-title">已完成</h3>
+            </div> 
+     <table class="table table-bordered table-hover table-striped">
+    <thead>
+            <tr>
+                <th>ID</th>
+                <th>Task</th>
+                <th>startTime</th>
+                <th>Deadline</th>
+                <th>endTime</th>
+            </tr>
+    </thead>
+     <tbody>
+            <tr v-for="item in list2" :key="item.id">
+                    <td>{{item.id}}</td>
+                    <td>{{item.task}}</td>
+                    <td>{{item.startTime | dateFormat()}}</td>
+                    <td>{{item.deadline}}</td>
+                    <td>{{item.endtime | dateFormat()}}</td>
+               </tr>
+     </tbody>
+    </table>
+    </div>
+ <script>
+    Vue.filter('dateFormat',function(datestr){
+        var dt = new Date(datestr)
+        var y = dt.getFullYear()
+        var m = (dt.getMonth()+1).toString().padStart(2,'0')
+        var d = dt.getDate().toString().padStart(2,'0')
+        var h = dt.getHours().toString().padStart(2,'0')
+        var mm = dt.getMinutes().toString().padStart(2,'0')
+        var s = dt.getSeconds().toString().padStart(2,'0')
+        return y + '-' + m + "-" + d +' ' + h + ":" + mm + ":" + s
+    })
+
+   var vm = new Vue({
+       el:'#app',
+       data:{
+           id:'',
+           task:'',
+           deadline:'',
+           keywords:'',
+           list:[
+               {id:1,task:'学习vue',ctime:new Date(),deadline:'2019-7-20'},
+               {id:2,task:'背完英语六级',ctime:new Date(),deadline:'2019-8-30'},
+               {id:3,task:'学习node基础',ctime:new Date(),deadline:'2019-7-30'}
+           ],
+           list2:[
+
+           ],
+       },
+       methods:{
+           add(){
+               var car = { id:this.id, task:this.task,ctime:new Date(), deadline:this.deadline}
+               this.list.push(car)
+               this.id = this.task = this.deadline = ''
+           },
+           del(id){
+               this.list.some((item,i) =>{
+                   if(item.id == id){
+                       this.list.splice(i,1);
+                       return true;
+                   }
+               })
+           },
+           search(keywords){
+               var newList = []
+               this.list.forEach(item => {
+                   if(item.task.indexOf(keywords) != -1){
+                       newList.push(item)
+                   }
+               });
+               return newList;
+           },
+           finish(ID){
+            var car = {}
+            this.list.forEach(item => {
+                   if(item.id === ID){
+                       car = {id:item.id, task:item.task, startTime:item.ctime, deadline:item.deadline, endtime:new Date()}
+                   }
+               });
+            this.list2.push(car)
+            /* var car = { id:this.list[id-1].id, task:this.list[id-1].task,startTime:this.list[id-1].ctime, deadline:this.list[id-1].deadline, endtime:new Date()}
+            this.list2.push(car) */
+            this.list.some((item,i) =>{
+                   if(item.id == ID){
+                       this.list.splice(i,1);
+                       return true;
+                   }
+               }) 
+           },
+       }
+   });
+ </script>
+</body>
+</html>
