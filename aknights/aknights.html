@@ -5,7 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>aknights！</title>
-    <script src="lib/vue-2.4.0.js"></script>
+    <script src="../lib/vue-2.4.0.js"></script>
     <link rel="stylesheet" href="aknight.css">
 </head>
 <body>
@@ -25,7 +25,7 @@
                                 <option v-for='item in list2'>{{item.name}}</option>
                         </select>
                     </div>
-            <input type="button" value="重新选择" @click='userDefined()'>   
+            <input type="button" value="确定" @click='userDefined()'>   
             <span>所选择的是: {{selectedSix}} {{selectedFive}}</span>     
         </div>  
         <div class="bar clearfix">
@@ -61,6 +61,8 @@
             selectedFive:[],
             mylist:[],
             mybox:[],
+            newList1:[],    //用来存放非up的六星角色
+            newList2:[],    //用来存放非up的五星角色
             list1:[
                 {id:1,rank:6,name:'塞雷亚',profession:'重装'},
                 {id:2,rank:6,name:'星熊',profession:'重装'},
@@ -148,11 +150,11 @@
                 {id:14,rank:3,name:'空爆',profession:'狙击'},
                 {id:15,rank:3,name:'安德切尔',profession:'狙击'},
                 {id:16,rank:3,name:'克洛斯',profession:'狙击'},
-                {id:17,rank:3,name:'深海色',profession:'梓兰'},
-            ],     
+                {id:17,rank:3,name:'梓兰',profession:'辅助'},
+            ],   
         },
         methods:{
-            /* 寻访 */
+            /* 基础寻访 */
             Draw(){
                 this.totalTimes++;
                 /* 以下算法包含保底机制 */
@@ -161,46 +163,60 @@
                 } 
                 /* 抽到星级的概率 */
                     var  prob = Math.floor(Math.random()*100)+1;  //概率1-100
-                    /* 抽中六星 */
+                    /* ------------抽中六星 -------------------*/
                     if(prob<=this.sixProb){
                         this.sixTimes++;
                         this.lastSixTimes = 0;
                         this.sixProb = 2;
-                        /* up的角色出现率上升至50% */
+                        /* up的角色出现率上升至所属星级的50% */
                         var  upProb = Math.floor(Math.random()*2)+1; //概率1-2
                         /* 未抽中up角色 */
                         if(upProb == 1){
-                            /* var  number = Math.floor(Math.random()*this.list1.length)+1; 
-                            this.list1.some((item)=>{
+                            var  number = Math.floor(Math.random()*this.newList1.length)+1; 
+                            this.newList1.some((item)=>{
                             if(item.id == number){
                                 this.mylist.push(item);
                             }
-                            }) */
-                            
+                            }) 
                         }
                         /* 抽中up角色 */
                         else if(upProb == 2){
-                            var i = Math.floor(Math.random()*this.selectedSix.lenght)+1;
+                            var i = Math.floor(Math.random()*this.selectedSix.length);
                             this.list1.some((item)=>{
-                            if(item.name == selectedSix[i]){
+                            if(item.name == this.selectedSix[i]){
                                 this.mylist.push(item);
                             }
-                            })
+                        })
                         }
-                    
                     }
-                    /* 抽中五星 */
+                    /*---------------- 抽中五星------------------- */
                     else if(this.sixProb<prob&&prob<=(this.sixProb+(100-this.sixProb)*8/98)){
                         this.fiveTimes++;
                         this.lastSixTimes++;
-                        var  number = Math.floor(Math.random()*this.list2.length)+1; 
-                        this.list2.some((item)=>{
-                        if(item.id == number){
-                            this.mylist.push(item);
+                        /* up的角色出现率上升至所属星级的50% */
+                       var  upProb = Math.floor(Math.random()*2)+1; //概率1-2
+                        /* 未抽中up角色 */
+                        if(upProb == 1){
+                            var  number = Math.floor(Math.random()*this.newList2.length)+1; 
+                            this.newList2.some((item)=>{
+                            if(item.id == number){
+                                this.mylist.push(item);
+                                console.log(item.name)
+                            }
+                            }) 
                         }
-                    })
+                        /* 抽中up角色 */
+                        else if(upProb == 2){
+                            var i = Math.floor(Math.random()*this.selectedFive.length);
+                            this.list2.some((item)=>{
+                            if(item.name == this.selectedFive[i]){
+                                this.mylist.push(item);
+                                console.log(item.name)
+                            }
+                        })
+                        }
                     }
-                    /* 抽中四星 */
+                    /*-------------------- 抽中四星-------------------------- */
                     else if((this.sixProb+(100-this.sixProb)*8/98)<prob&&prob<=(100-(100-this.sixProb)*40/98)){
                         this.lastSixTimes++;
                         var  number = Math.floor(Math.random()*this.list3.length)+1; 
@@ -210,7 +226,7 @@
                         }
                     })
                     }
-                    /* 抽中三星 */
+                    /*------------------------- 抽中三星------------------------- */
                     else if((100-(100-this.sixProb)*40/98)<prob&&prob<=100){
                         this.lastSixTimes++;
                         var  number = Math.floor(Math.random()*this.list4.length)+1; 
@@ -243,8 +259,34 @@
                 this.sixProb = 2;
             },
             userDefined(){
-                this.selectedSix = [];
-                this.selectedFive = [];
+            this.newList1 = [];
+            this.newList2 = [];
+            var flag1 = true;
+                this.list1.some((item)=>{
+                    for(var i=0;i<this.selectedSix.length;i++){
+                    if(item.name === this.selectedSix[i]){
+                            flag1 = false;
+                        }
+                    }
+                    if(flag1){
+                    this.newList1.push(item);
+                    }
+                    flag1 = true;
+                })
+               // console.log(this.newList1)
+            var flag2 = true;
+                this.list2.some((item)=>{
+                    for(var i=0;i<this.selectedFive.length;i++){
+                    if(item.name === this.selectedFive[i]){
+                            flag2 = false;
+                        }
+                    }
+                    if(flag2){
+                    this.newList2.push(item);
+                    }
+                    flag2 = true;
+                })
+                //console.log(this.newList2)
             },
         },
     })
